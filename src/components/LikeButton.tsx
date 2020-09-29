@@ -11,4 +11,5 @@ const LikeButton: React.FC = () => {
     </button>
   )
 }
+            
 export default LikeButton
