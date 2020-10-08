@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import { type } from 'os'
+
 export enum ButtonSize {
   Large = 'lg',
   Small = 'sm'
@@ -37,13 +37,13 @@ const Button: React.FC<ButtonProps> = props => {
         {children}
       </a>
     )
-  } else {
+  } 
     return (
       <button className={classes} disabled={disabled}>
         {children}
       </button>
     )
-  }
+  
 }
 
 Button.defaultProps = {
