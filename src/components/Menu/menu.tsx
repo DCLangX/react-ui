@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import classNames from 'classnames';
+import { MenuItemProps } from './menuItem';
 
 type MenuMode = 'horizontial' | 'vertial';
 type onSelectCallBack = (selectIndex: number) => void;
@@ -32,10 +33,20 @@ const Menu: React.FC<MenuProps> = (props) => {
   };
   const classes = classNames('viking-meun', className, {
     'menu-vertial': mode === 'vertial',
+    'menu-horizontal': mode !== 'vertial',
   });
+  const renderChildren = () => {
+    return React.Children.map(children, (child, index) => {
+      const childElement = child as React.FunctionComponentElement<MenuItemProps>;
+      if (childElement.type.displayName === 'MenuItem') {
+        return React.cloneElement(childElement, { index });
+      }
+      console.error('警告！Menu子组件只能为MenuItem组件');
+    });
+  };
   return (
     <ul className={classes} style={style}>
-      <MenuContext.Provider value={passedContext}>{children}</MenuContext.Provider>
+      <MenuContext.Provider value={passedContext}>{renderChildren()}</MenuContext.Provider>
     </ul>
   );
 };
